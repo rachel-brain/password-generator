@@ -17,6 +17,10 @@ body {
   background-color: #f9fbfd;
 }
 
+p {
+  font-size: 18px
+}
+
 .wrapper {
   padding-top: 30px;
   padding-left: 20px;
@@ -27,7 +31,14 @@ header {
   text-align: center;
   padding: 20px;
   padding-top: 0px;
-  color: hsl(206, 17%, 28%);
+  color: #559900;
+}
+
+.card-header {
+  text-align: left;
+  padding: 10px;
+  padding-top: 0px;
+  color: #2793e8;
 }
 
 .card {
@@ -47,6 +58,7 @@ header {
   display: block;
   width: 100%;
   background: #e7e9eb;
+  color: hsl(206, 17%, 28%);
   height: 2px;
 }
 
@@ -74,7 +86,7 @@ header {
 
 .btn {
   border: none;
-  background-color: hsl(360, 91%, 36%);
+  background-color: #559900;
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
     0px;
