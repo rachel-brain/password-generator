@@ -1,3 +1,124 @@
+// Assignment Code:
+var generateBtn = document.querySelector("#generate");
+
+// Set arrays (strings?) of character options for the computer to pick from to generate a password:
+var charactersLowercase = ['abcdefghijklmnopqrstuvwxyz'],
+    charactersUppercase = ['ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+    charactersNumbers = ['0123456789'],
+    charactersSymbols = ['!#$%&(*+,-./:;<=>?@[]^_`{|}~']
+
+var userChoiceLowercase,
+    userChoiceUppercase,
+    userChoiceNumbers,
+    userChoiceSymbols,
+    passwordLength
+
+let selectedCharacters = []
+
+// Ask users via confirm boxes which characters they want to include & via a prompt box their chosen password length:
+function askUser() {
+  userChoiceLowercase = confirm("Do you want to include lowercase letters?");
+  userChoiceUppercase = confirm("Do you want to include uppercase letters?");
+  userChoiceNumbers = confirm("Do you want to include numbers?");
+  userChoiceSymbols = confirm("Do you want to include symbols?");
+  passwordLength = prompt("Enter the number of characters you want in your password between 8 and 128", "");
+}
+
+function generatePassword() {
+  var result = '',
+      selectedCharacters = ''
+
+  if (passwordLength >= 8 && passwordLength <= 128) {
+    console.log(passwordLength);
+  }
+
+  // Options for characters chosen to be included in the password:
+  if (userChoiceLowercase === true && userChoiceUppercase === true && userChoiceNumbers === true && userChoiceSymbols === true) {
+    var selectedCharacters = charactersLowercase + charactersUppercase + charactersNumbers + charactersSymbols
+
+  } else if (userChoiceLowercase === false && userChoiceUppercase === true && userChoiceNumbers === true && userChoiceSymbols === true) {
+    var selectedCharacters = charactersUppercase + charactersNumbers + charactersSymbols
+  
+  } else if (userChoiceLowercase === true && userChoiceUppercase === false && userChoiceNumbers === true && userChoiceSymbols === true) {
+    var selectedCharacters = charactersLowercase + charactersNumbers + charactersSymbols
+    
+  } else if (userChoiceLowercase === true && userChoiceUppercase === true && userChoiceNumbers === false && userChoiceSymbols === true) {
+    var selectedCharacters = charactersLowercase + charactersUppercase + charactersSymbols
+    
+  } else if (userChoiceLowercase === true && userChoiceUppercase === true && userChoiceNumbers === true && userChoiceSymbols === false) {
+    var selectedCharacters = charactersLowercase + charactersUppercase + charactersNumbers
+  
+  } else if (userChoiceLowercase === true && userChoiceUppercase === true && userChoiceNumbers === false && userChoiceSymbols === false) {
+    var selectedCharacters = charactersLowercase + charactersUppercase
+  
+  } else if (userChoiceLowercase === false && userChoiceUppercase === false && userChoiceNumbers === true && userChoiceSymbols === true) {
+    var selectedCharacters = charactersNumbers + charactersSymbols
+   
+  } else if (userChoiceLowercase === false && userChoiceUppercase === true && userChoiceNumbers === true && userChoiceSymbols === false) {
+    var selectedCharacters = charactersUppercase + charactersNumbers 
+  
+  } else if (userChoiceLowercase === true && userChoiceUppercase === false && userChoiceNumbers === false && userChoiceSymbols === true) {
+    var selectedCharacters = charactersLowercase + charactersSymbols  
+  
+  } else if (userChoiceLowercase === false && userChoiceUppercase === true && userChoiceNumbers === false && userChoiceSymbols === true) {
+    var selectedCharacters = charactersUppercase + charactersSymbols
+  
+  } else if (userChoiceLowercase === true && userChoiceUppercase === false && userChoiceNumbers === true && userChoiceSymbols === false) {
+    var selectedCharacters = charactersLowercase + charactersNumbers
+      
+  } for (i = 0; i <= passwordLength-1; i++) {
+    result += selectedCharacters.charAt(Math.floor(Math.random() * passwordLength));
+  } return result;
+}
+
+// Write password to the #password input
+function writePassword() {
+  askUser();  
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;  
+}
+
+// Add event listener to generate button - I removed [disabled] from the button in CSS
+generateBtn.addEventListener("click", writePassword);
+
+
+// Other steps to add:
+// 1. Alert user to begin again if only one type of character has been chosen
+// } else {
+//   var beginAgain = alert("You have not chosen enough types of characters to generate a strong password. Would you like to begin again?");
+//   // If user pressed OK, run the function again or, if user presses cancel, the function ends
+//   if (beginAgain) {
+//     generatePassword();
+//   } else (!beginAgain) {
+//     return;
+//   }
+// };
+// 
+// 2. Confirm if user would like to generate another password
+// var generateAgain = confirm("Would you like to generate another password?");
+// If user pressed OK, run the function again
+// if (generateAgain) {
+//   generatePassword();
+// } else (!generateAgain) {
+//   return;
+// }
+// };
+// 
+// 3. Alert user to begin again if <8 or >128 characters have been chosen for the password length
+//   var generateAgain = alert("You have not chosen enough types of characters to generate a strong password. Would you like to start again?");
+//   // If user pressed OK, run the function again or, if user presses cancel, the function ends
+//     if (generateAgain) {
+//       generatePassword();
+//     } else (!generateAgain) {
+//       return;
+//   }
+//
+ 
+// 4. When the password is generated, 
+// add "click here to copy"
+//
+
 // Include this in the README file at the end:
 // Added the information regarding strong password criteria to the Password Generator page so 
 // that the user is confident that the random password generated by this website will be strong.
@@ -5,166 +126,11 @@
 // to improve the strength of the password generated.
 // Snapshots of examples such as Lastpass & Strong Password Generator are included in images folder.
 
-// Assignment Code:
-var generateBtn = document.querySelector("#generate");
+// To check the selected characters are correct: (REMOVE FOR SUBMISSION)
+// console.log(selectedCharacters);
+// return
 
-// Array of total options for the computer to pick from to generate a password:
-var charactersLowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var charactersUppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-var charactersNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-var charactersSymbols = ['!', '#', '$', '%', '&', '(', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~'];
-var selectedCharacters = [];
-
-var passwordLength = []
-for (let i = 8; i < 129; i++) {
-  passwordLength.push(i)
-}
-
-// Ask users via prompt boxes which characters they want to include:
-function querySelector() {  
-  userChoiceLowercase = prompt("Do you want to include lowercase letters?", "OK for yes & Cancel for no");
-  userChoiceUppercase = prompt("Do you want to include uppercase letters?", "OK for yes & Cancel for no");
-  userChoiceNumbers = prompt("Do you want to include numbers?", "OK for yes & Cancel for no");
-  userChoiceSymbols = prompt("Do you want to include symbols?", "OK for yes & Cancel for no");
-  userChoiceLength = prompt("Enter the number of characters you want in your password between 8 and 20", "");
-}
-
-querySelector();
-
-// Check correct password length:
-if (passwordLength >=8 && passwordLength <=128) {
-  console.log(passwordLength);
-}
-
-// Options for characters chosen to be included in the password:
-if 
-    (userChoiceLowercase == true && userChoiceUppercase == true && userChoiceNumbers == true && userChoiceSymbols == true) {
-      var selectedCharacters = charactersLowercase + charactersUppercase + charactersNumbers + charactersSymbols
-
-    } else if
-    (userChoiceLowercase == null && userChoiceUppercase == true && userChoiceNumbers == true && userChoiceSymbols == true) {
-      var selectedCharacters = charactersUppercase + charactersNumbers + charactersSymbols
-
-    } else if
-    (userChoiceLowercase == true && userChoiceUppercase == null && userChoiceNumbers == true && userChoiceSymbols == true) {
-      var selectedCharacters = charactersLowercase + charactersNumbers + charactersSymbols
-    
-    } else if
-    (userChoiceLowercase == true && userChoiceUppercase == true && userChoiceNumbers == null && userChoiceSymbols == true) {
-      var selectedCharacters = charactersLowercase + charactersUppercase + charactersSymbols
-
-    } else if
-    (userChoiceLowercase == true && userChoiceUppercase == true && userChoiceNumbers == true && userChoiceSymbols == null) {
-      var selectedCharacters = charactersLowercase + charactersUppercase + charactersNumbers
-
-    } else if
-    (userChoiceLowercase == true && userChoiceUppercase == true && userChoiceNumbers == null && userChoiceSymbols == null) {
-      var selectedCharacters = charactersLowercase + charactersUppercase
-
-    } else if
-    (userChoiceLowercase == null && userChoiceUppercase == null && userChoiceNumbers == true && userChoiceSymbols == true) {
-      var selectedCharacters = charactersNumbers + charactersSymbols
-
-    } else if
-    (userChoiceLowercase == null && userChoiceUppercase == true && userChoiceNumbers == true && userChoiceSymbols == null) {
-      var selectedCharacters = charactersUppercase + charactersNumbers
-
-    } else if
-    (userChoiceLowercase == true && userChoiceUppercase == null && userChoiceNumbers == null && userChoiceSymbols == true) {
-      var selectedCharacters = charactersLowercase + charactersSymbols
-
-    } else if
-    (userChoiceLowercase == null && userChoiceUppercase == true && userChoiceNumbers == null && userChoiceSymbols == true) {
-      var selectedCharacters = charactersUppercase + charactersSymbols
-
-    } else if
-    (userChoiceLowercase == true && userChoiceUppercase == null && userChoiceNumbers == true && userChoiceSymbols == null) {
-      var selectedCharacters = charactersLowercase + charactersNumbers    
-
-    } else {
-      alert("You have not chosen enough types of characters to generate a strong password.  Would you like to start again?");
-      // If user pressed OK, run the function again
-        generatePassword();
-        }  
-
-        console.log(selectedCharacters);
-        generatePassword(passwordLength);
-  
-        document.getElementById("password").value = generatePassword(passwordLength);
-
-function generatePassword() {
-  var result = '';
-  var characters = selectedCharacters;
-  var passwordLength = password.length;
-  for (let i = 8; i < length; i++ ) {
-     result += characters.charAt(Math.floor(Math.random() * passwordLength));
-  }
-  console.log(result);
-  return result;
-}   
-
-generatePassword();
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-}
-
-writePassword();
-
-// Add event listener to generate button - I have removed [disabled] from the button in CSS
-generateBtn.addEventListener("click", writePassword);
-  
-// Ask user if they want to generate another password
-var generateAgain = confirm("Would you like to generate another password?");
-
-// If user pressed OK, run the function again
-if (generateAgain) {
-  generatePassword();
-}
-
-
-/* 
-GIVEN I need a new, secure password
-WHEN I click the button to generate a password
-THEN I am presented with a series of prompts for password criteria
-
-WHEN prompted for password criteria
-THEN I select which criteria to include in the password
-
-  prompt - ?
-
-WHEN prompted for the length of the password
-THEN I choose a length of at least 8 characters and no more than 128 characters
-
-  prompt - choose how many characters you want to use
-
-WHEN prompted for character types to include in the password
-THEN I choose lowercase, uppercase, numeric, and/or special characters
-
-  prompt - check which character types you want to use
-
-WHEN I answer each prompt
-THEN my input should be validated and at least one character type should be selected
-
-  confirm?
-
-WHEN all prompts are answered
-THEN a password is generated that matches the selected criteria
-
-
-WHEN the password is generated
-THEN the password is either displayed in an alert or written to the page
-
-  display in alert or on the page
-
-  add "click here to copy?"
-
-*/
-
-
-      // Assistance from: 
-      // https://www.easyprogramming.net/javascript/js_random_password_generator.php
-      // https://stackoverflow.com/questions/63822962/i-am-making-a-password-generator-using-javascript-the-password-does-not-display
+// Assistance from: 
+// https://www.easyprogramming.net/javascript/js_random_password_generator.php
+// https://stackoverflow.com/questions/63822962/i-am-making-a-password-generator-using-javascript-the-password-does-not-display
+// & numerous other websites 
